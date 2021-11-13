@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Current File",
+            "runtimeExecutable": "npm",
+            "args": [
+                "test",
+                "--",
+                "--headed",
+                "${file}"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229,
+            "timeout": 60000,
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run All Tests",
+            "runtimeExecutable": "npm",
+            "args": [
+                "test",
+                "--",
+                "-l",
+                "trace",
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229,
+            "timeout": 60000,
+        }
+    ]
+}
