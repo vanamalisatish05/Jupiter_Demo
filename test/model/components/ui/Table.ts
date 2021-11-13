@@ -24,7 +24,6 @@ export default class Table {
             if(cellText.trim()===searchValue) {
                 return row.locator('td,th').nth(returnColumnIndex);
             }
-
         }
         throw new Error(`Couldn't find element for searchColumn: ${searchColumn}, searchValue: ${searchValue}, returnColumn: ${returnColumn}`);
     }
