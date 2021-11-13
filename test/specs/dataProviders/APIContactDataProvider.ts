@@ -4,6 +4,8 @@
 import * as request from 'superagent';
 import {ContactData} from '../../model/data';
 
+export type TestAPIContactData = { apiContactData: ContactData;};
+
 export default class APIContactDataProvider {
     public async getData(): Promise<ContactData> {
         const apiEnvironment = 'https://petstore3.swagger.io/api/v3';
