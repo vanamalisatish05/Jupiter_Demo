@@ -80,7 +80,10 @@ test('validate successful submittion [stepped example]', async ()=> {
 });
 
 /**
- * API data provider example
+ * API data provider example. 
+ * This shows how to deal with async data providers.
+ * With this approach it is not possible to generate tests from a data array
+ * Data sourced this way will be passed directly to one test as a parameter
  */
 const parameterizedTestAPI = test.extend<TestAPIContactData>({
     apiContactData: async ({ }, use) => {
@@ -100,7 +103,11 @@ parameterizedTestAPI('validate successful submittion [api data driven example]',
         .toBe(`Thanks ${data.forename}, we appreciate your feedback.`);
 });
 
-
+/**
+ * This example uses a sync data provider.
+ * Here a data array is obtained and tests are dynamically generated for each entry in the array
+ * TODO: Find a way to dynamically generate tests based on an async data provider
+ */
 const contactData = new ContactDataProvider('specs/data/contact_data.json').getData();
 contactData.forEach(data => {
     test(`validate successful submittion [json data driven example] - ${data.forename}`, async () => {
