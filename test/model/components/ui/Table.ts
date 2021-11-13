@@ -26,14 +26,6 @@ export default class Table {
             }
 
         }
-        // const handle = await this.rootElement.elementHandle();
-        // const cellsPromises = (await handle.$$('tbody tr')).map(row => row.$$('td,th'));
-        // const cellsArray = await Promise.all(cellsPromises);
-        // for (const cells of cellsArray) {
-        //     if (await cells[searchColumnIndex].innerText()===searchValue) {
-        //         return cells[returnColumnIndex];
-        //     }
-        // }
         throw new Error(`Couldn't find element for searchColumn: ${searchColumn}, searchValue: ${searchValue}, returnColumn: ${returnColumn}`);
     }
 }
