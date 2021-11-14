@@ -22,6 +22,12 @@ function checkMandatoryEnvironmentVariables() {
       missing.areMissing = true;
       missing.list.push('PLAYWRIGHT_URL');
   }
+  if (process.env.PLAYWRIGHT_BROWSER === undefined || process.env.PLAYWRIGHT_BROWSER.length===0) {
+      console.log('PLAYWRIGHT_BROWSER not set. "chromium" will be used as the default browser');
+  }
+  if (process.env.PLAYWRIGHT_HEADLESS === undefined || process.env.PLAYWRIGHT_HEADLESS.length===0) {
+      console.log('PLAYWRIGHT_HEADLESS not set. By default tests will run "headless"');
+  }
   if (missing.areMissing===true) throw Error(`Missing mandatory environment variables: ${missing.list}`);
 }
 
