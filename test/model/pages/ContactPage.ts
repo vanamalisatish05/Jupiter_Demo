@@ -60,11 +60,11 @@ export default class ContactPage extends BasePage {
     }
 
     private async getErrorText(locator: string): Promise<string> {
-        const errors = await this.page.$$(locator);
-        if (errors.length === 0) {
+        const errors = await this.page.locator(locator).count();
+        if (errors === 0) {
             return '';
         }
-        return errors[0].innerText();
+        return await this.page.locator(locator).nth(0).innerText();
     }
 
     async clickSubmitButton(): Promise<ContactPage> {
