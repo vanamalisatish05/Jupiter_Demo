@@ -1,4 +1,4 @@
-import {test as base, Page} from '@playwright/test';
+import {test as base , Page} from '@playwright/test';
 import BasePage from '../model/pages/BasePage';
 import * as dotenv from 'dotenv';
 
@@ -12,7 +12,14 @@ export default base.beforeEach(async ({ page, context }) => {
     // Go to the starting url before each test.
     await context.clearCookies();
     await page.goto(PLAYWRIGHT_URL); 
-});
+}); 
+
+module.exports.afterEach = base.afterEach(async ({page, context}, testInfo)=>{
+    if(testInfo.error) {
+        await page.screenshot({path: testInfo.outputPath('screenshot.png'),fullPage: true});
+    }
+}); 
+
 
 function checkMandatoryEnvironmentVariables() {
     const missing: {areMissing: boolean, list: string[]} = {areMissing: false, list: []};

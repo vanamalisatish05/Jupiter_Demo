@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "playwright test",
+    "clean": "rm -rf test-results",
     "lint": "eslint './test/**/*.ts'",
     "lint-fix": "yarn lint --fix"
   },

@@ -1,5 +1,6 @@
 !.gitignore
 tests_output/
+test-results/
 .env
 # Logs
 logs

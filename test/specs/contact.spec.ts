@@ -2,6 +2,7 @@ import { test, expect, Page, TestFixture } from '@playwright/test';
 import { ContactData } from '../model/data';
 import { HomePage } from '../model/pages';
 import beforeEach, { Open, openFactory } from './BaseTests';
+import afterEach from './BaseTests';
 import { APIContactDataProvider, ContactDataProvider } from './dataProviders';
 import { TestAPIContactData } from './dataProviders/APIContactDataProvider';
 
@@ -9,6 +10,9 @@ let open: Open;
 test.beforeEach(async ({ page }) => {
     beforeEach;
     open = openFactory(page);
+});
+test.afterEach(async ()=>{
+    afterEach;
 });
 
 test('validate mandatory errors [fluent example]', async () => {

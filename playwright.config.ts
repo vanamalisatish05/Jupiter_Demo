@@ -2,6 +2,6 @@
 import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
-  reporter: [['list'],['junit', { outputFile: 'tests_output/results.xml' }]],
+  reporter: [['list'],['junit', { outputFile: 'test-results/results.xml' }]],
 };
 export default config;
