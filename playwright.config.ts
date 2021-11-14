@@ -10,7 +10,8 @@ const config: PlaywrightTestConfig = {
   use: {
     baseURL: PLAYWRIGHT_URL,
     browserName: PLAYWRIGHT_BROWSER,
-    headless: PLAYWRIGHT_HEADLESS
+    headless: PLAYWRIGHT_HEADLESS,
+    screenshot: 'only-on-failure',
   },
 };
 export default config;

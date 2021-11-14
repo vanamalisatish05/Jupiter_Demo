@@ -1,16 +1,13 @@
 import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../model/pages';
 import beforeEach, { openFactory, Open } from './BaseTests'; 
-import afterEach from './BaseTests';
 
 let open: Open;
 test.beforeEach(async ({ page }) => {
     beforeEach;
     open = openFactory(page);
 });
-test.afterEach(async () => {
-    afterEach;
-});
+
 
 test('validate cart price [fluent example]', async () => {
     const product = await open(HomePage)

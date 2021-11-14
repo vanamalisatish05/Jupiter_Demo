@@ -1,16 +1,12 @@
 import { test, expect, Page } from '@playwright/test';
 import { LoginData } from '../model/data';
 import { HomePage } from '../model/pages';
-import afterEach from './BaseTests';
 import beforeEach, { Open, openFactory } from './BaseTests'; 
 
 let open: Open;
 test.beforeEach(async ({ page }) => {
     beforeEach;
     open = openFactory(page);
-});
-test.afterEach(async () => {
-    afterEach;
 });
 
 test('validate successful login [fluent example]', async () => {
