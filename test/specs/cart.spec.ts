@@ -1,6 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../model/pages';
-import BasePage from '../model/pages/BasePage';
 import beforeEach, { openFactory, Open } from './BaseTests'; 
 import afterEach from './BaseTests';
 
@@ -9,7 +8,7 @@ test.beforeEach(async ({ page }) => {
     beforeEach;
     open = openFactory(page);
 });
-test.afterEach(async ()=>{
+test.afterEach(async () => {
     afterEach;
 });
 

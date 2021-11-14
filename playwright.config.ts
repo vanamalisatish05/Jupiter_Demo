@@ -1,7 +1,37 @@
 // playwright.config.ts
 import { PlaywrightTestConfig } from '@playwright/test';
+import * as dotenv from 'dotenv';
+dotenv.config();
+checkMandatoryEnvironmentVariables();
+const {PLAYWRIGHT_URL, PLAYWRIGHT_BROWSER, PLAYWRIGHT_HEADLESS} = readEnvironmentVariables();
 
 const config: PlaywrightTestConfig = {
   reporter: [['list'],['junit', { outputFile: 'test-results/results.xml' }]],
+  use: {
+    baseURL: PLAYWRIGHT_URL,
+    browserName: PLAYWRIGHT_BROWSER,
+    headless: PLAYWRIGHT_HEADLESS
+  },
 };
 export default config;
+
+function checkMandatoryEnvironmentVariables() {
+  const missing: {areMissing: boolean, list: string[]} = {areMissing: false, list: []};
+  if (process.env.PLAYWRIGHT_URL === undefined || process.env.PLAYWRIGHT_URL.length===0) {
+      missing.areMissing = true;
+      missing.list.push('PLAYWRIGHT_URL');
+  }
+  if (missing.areMissing===true) throw Error(`Missing mandatory environment variables: ${missing.list}`);
+}
+
+function readEnvironmentVariables() {
+  const PLAYWRIGHT_URL = process.env.PLAYWRIGHT_URL;
+  const PLAYWRIGHT_BROWSER: 'chromium'|'firefox'|'webkit' = process.env.PLAYWRIGHT_BROWSER
+    ? process.env.PLAYWRIGHT_BROWSER as 'chromium'|'firefox'|'webkit' 
+    : 'chromium';
+  const PLAYWRIGHT_HEADLESS = process.env.PLAYWRIGHT_HEADLESS
+    ? process.env.PLAYWRIGHT_HEADLESS!=='false'
+    : true;
+  
+  return {PLAYWRIGHT_URL, PLAYWRIGHT_BROWSER, PLAYWRIGHT_HEADLESS};
+}

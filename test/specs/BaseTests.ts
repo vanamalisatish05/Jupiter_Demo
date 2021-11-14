@@ -1,17 +1,11 @@
 import {test as base , Page} from '@playwright/test';
 import BasePage from '../model/pages/BasePage';
-import * as dotenv from 'dotenv';
 
-base.beforeAll(async () => {
-    dotenv.config();
-});
-
-export default base.beforeEach(async ({ page, context }) => {
-    checkMandatoryEnvironmentVariables();
-    const {PLAYWRIGHT_URL} = readEnvironmentVariables();
+export default base.beforeEach(async ({ page, context, baseURL }) => {
+    
     // Go to the starting url before each test.
     await context.clearCookies();
-    await page.goto(PLAYWRIGHT_URL); 
+    await page.goto(baseURL); 
 }); 
 
 module.exports.afterEach = base.afterEach(async ({page, context}, testInfo)=>{
@@ -20,20 +14,6 @@ module.exports.afterEach = base.afterEach(async ({page, context}, testInfo)=>{
     }
 }); 
 
-
-function checkMandatoryEnvironmentVariables() {
-    const missing: {areMissing: boolean, list: string[]} = {areMissing: false, list: []};
-    if (process.env.PLAYWRIGHT_URL === undefined || process.env.PLAYWRIGHT_URL.length===0) {
-        missing.areMissing = true;
-        missing.list.push('PLAYWRIGHT_URL');
-    }
-    if (missing.areMissing===true) throw Error(`Missing mandatory environment variables: ${missing.list}`);
-}
-
-function readEnvironmentVariables() {
-    const PLAYWRIGHT_URL = process.env.PLAYWRIGHT_URL;
-    return {PLAYWRIGHT_URL};
-}
 
 export type Open = <T extends BasePage> (type: { new(page: Page): T; }) => Promise<T>;
 

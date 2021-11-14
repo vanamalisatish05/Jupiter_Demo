@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
     beforeEach;
     open = openFactory(page);
 });
-test.afterEach(async ()=>{
+test.afterEach(async () => {
     afterEach;
 });
 

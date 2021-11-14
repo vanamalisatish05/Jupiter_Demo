@@ -1,4 +1,3 @@
-//import {Table} from '../components';
 import { Table } from '../components';
 import BasePage from './BasePage';
 
@@ -9,7 +8,7 @@ export default class CartPage extends BasePage {
     }
 
     private async getTable() {
-        return new Table(await this.page.locator('.cart-items'));
+        return new Table(this.page.locator('.cart-items'));
     }
 
     async getPrice(title: string): Promise<number> {
