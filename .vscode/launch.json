@@ -7,12 +7,27 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug Current File",
+            "name": "Debug Headed",
             "runtimeExecutable": "npm",
             "args": [
                 "test",
                 "--",
                 "--headed",
+                "${file}"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229,
+            "timeout": 60000,
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Headless",
+            "runtimeExecutable": "npm",
+            "args": [
+                "test",
+                "--",
                 "${file}"
             ],
             "console": "integratedTerminal",
