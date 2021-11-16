@@ -1,4 +1,4 @@
-import { ElementHandle, Locator } from 'playwright-core';
+import { Locator } from 'playwright-core';
 import {LoginData} from '../../data';
 
 export default class LoginDialog<T> {
