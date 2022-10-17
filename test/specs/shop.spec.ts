@@ -14,6 +14,12 @@ test('validate product price [fluent example]', async () => {
         .then(_=>_.getProduct(async p => (await p.getTitle())==='Stuffed Frog'))
         .then(_=>_.getPrice());
     expect(price).toBeCloseTo(10.99);
+
+    const homePage = await open(HomePage);
+    const shopPage = await homePage.clickShopMenu();
+    const product = await shopPage.getProduct(async p => (await p.getTitle())==='Stuffed Frog');
+    const price2 = await product.getPrice();
+    expect(price2).toBeCloseTo(10.99);
 });
 
 test('validate product cart count [fluent example]', async () => {

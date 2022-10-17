@@ -9,7 +9,7 @@ let open: Open;
 test.beforeEach(async ({ page }) => {
     beforeEach;
     open = openFactory(page);
-});
+});  
 
 test('validate mandatory errors [fluent example]', async () => {
     const contactPage = await open(HomePage)

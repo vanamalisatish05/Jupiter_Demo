@@ -21,7 +21,7 @@ export default class CartPage extends BasePage {
 
     async getQuantity(title: string) {
         const element = await (await this.getTable()).getValue('Item', title, 'Quantity');
-        const priceString = await element.locator('input').getAttribute('value');
+        const priceString = (await element.locator('input').getAttribute('value')) as string;
         return Number.parseInt(
             priceString
         );

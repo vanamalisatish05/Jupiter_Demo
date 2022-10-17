@@ -11,6 +11,7 @@ test.beforeEach(async ({ page }) => {
 
 test('validate successful login [fluent example]', async () => {
     const user = await open(HomePage)
+        .then(_=>_.clickShopMenu())
         .then(_=>_.clickLoginMenu())
         .then(_=>_.setUsername('someone'))
         .then(_=>_.setPassword('letmein'))
