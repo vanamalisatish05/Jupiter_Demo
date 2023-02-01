@@ -5,7 +5,7 @@ export default base.beforeEach(async ({ page, context, baseURL }) => {
     
     // Go to the starting url before each test.
     await context.clearCookies();
-    await page.goto(baseURL); 
+    await page.goto(baseURL!); 
 }); 
 
 export type Open = <T extends BasePage> (type: { new(page: Page): T; }) => Promise<T>;
