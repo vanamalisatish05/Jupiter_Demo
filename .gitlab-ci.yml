@@ -1,0 +1,34 @@
+variables:
+  SELENIUM_URL: $SELENIUM_URL
+  SELENIUM_BROWSER: $SELENIUM_BROWSER
+  SELENIUM_HEADLESS: $SELENIUM_HEADLESS
+
+stages:
+  - setup
+  - test
+  - report
+
+setup:
+  stage: setup
+  script:
+    - yarn install
+    - yarn playwright install
+
+test:
+  stage: test
+  script: 
+    - yarn test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - test-results/*.xml        
+
+report:
+  stage: report
+  script:
+    - echo "TODO extract the browser name and version"
+    - curl http://localhost:4444/status
+    - ls -lha
+    - echo "TODO push to Planit DoT"
+
