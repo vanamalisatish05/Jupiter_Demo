@@ -6,11 +6,12 @@ variables:
 stages:
   - test
   - report
-  
+
 test:
   stage: test
   script: 
     - yarn install
+    - yarn playwright install-deps
     - yarn playwright install
     - yarn test
   artifacts:
