@@ -11,6 +11,7 @@ stages:
 setup:
   stage: setup
   script:
+    - npm install -g yarn
     - yarn install
     - yarn playwright install
 
