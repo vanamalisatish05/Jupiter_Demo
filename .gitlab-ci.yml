@@ -4,19 +4,14 @@ variables:
   SELENIUM_HEADLESS: $SELENIUM_HEADLESS
 
 stages:
-  - setup
   - test
   - report
-
-setup:
-  stage: setup
-  script:
-    - yarn install
-    - yarn playwright install
-
+  
 test:
   stage: test
   script: 
+    - yarn install
+    - yarn playwright install
     - yarn test
   artifacts:
     when: always
