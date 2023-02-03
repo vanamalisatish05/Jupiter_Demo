@@ -7,7 +7,8 @@ PLAYWRIGHT_BROWSER=chromium
 PLAYWRIGHT_HEADLESS=true
 ```
 2. run `yarn install`
-3. run `yarn test`
+3. run `yarn playwright install`
+4. run `yarn test`
 
 
 # Environment setup

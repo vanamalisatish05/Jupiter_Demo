@@ -1,4 +1,5 @@
 !.gitignore
+playwright-report/
 tests_output/
 test-results/
 .env

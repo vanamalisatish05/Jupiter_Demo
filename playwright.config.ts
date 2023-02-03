@@ -6,7 +6,7 @@ checkMandatoryEnvironmentVariables();
 const {PLAYWRIGHT_URL, PLAYWRIGHT_BROWSER, PLAYWRIGHT_HEADLESS} = readEnvironmentVariables();
 
 const config: PlaywrightTestConfig = {
-  reporter: [['list'],['junit', { outputFile: 'test-results/results.xml' }]],
+  reporter: [['html', {open: 'never'}],['list'],['junit', { outputFile: 'test-results/results.xml' }]],
   use: {
     baseURL: PLAYWRIGHT_URL,
     browserName: PLAYWRIGHT_BROWSER,
