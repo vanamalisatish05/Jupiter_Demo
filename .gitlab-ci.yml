@@ -2,6 +2,10 @@ variables:
   SELENIUM_URL: $SELENIUM_URL
   SELENIUM_BROWSER: $SELENIUM_BROWSER
   SELENIUM_HEADLESS: $SELENIUM_HEADLESS
+  DOT_API_TOKEN: $DOT_API_TOKEN
+  BUILD_ID:
+    value: '1.0'
+    description: 'Build id of upload'
 
 stages:
   - test
@@ -14,16 +18,22 @@ test:
     - yarn playwright install
     - yarn test
   artifacts:
+    name: 'JUnit test results'
     when: always
     reports:
       junit:
-        - test-results/*.xml        
+        - test-results/junit.xml
 
 report:
   stage: report
   script:
+    - echo "TODO generata metadata file"
     - echo "TODO extract the browser name and version"
     - curl http://localhost:4444/status
     - ls -lha
     - echo "TODO push to Planit DoT"
+    - planit dot upload test-results/junit.xml --metadata metadata.yaml --token $DOT_API_TOKEN --build_id $BUILD_ID --browsername  --browserversion 
+  # environment:
+  #   name: prod
+  #   url: https://www.api.planittesting.com/prod/dot/upload/junit
 
