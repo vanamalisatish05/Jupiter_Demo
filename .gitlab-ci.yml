@@ -45,7 +45,7 @@ report:
   before_script:
     - python --version ; pip --version
     - pip install virtualenv
-    - virtualenv venv
+    - python -m virtualenv venv
     - source venv/bin/activate
   
   script:
