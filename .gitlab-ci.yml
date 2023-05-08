@@ -34,9 +34,6 @@ report:
     name: prod
     url: https://www.api.planittesting.com/prod/dot/upload/junit
   
-  before_script:
-    - sudo apt install jq
-  
   image: python:latest
   
   script:
