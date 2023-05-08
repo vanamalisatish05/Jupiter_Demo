@@ -1,17 +1,10 @@
-import { test, expect, Page, TestFixture } from '@playwright/test';
 import { ContactData } from '../model/data';
 import { HomePage } from '../model/pages';
-import beforeEach, { Open, openFactory } from './BaseTests';
+import { test, expect } from './BaseTests'; 
 import { APIContactDataProvider, ContactDataProvider } from './dataProviders';
 import { TestAPIContactData } from './dataProviders/APIContactDataProvider';
 
-let open: Open;
-test.beforeEach(async ({ page }) => {
-    beforeEach;
-    open = openFactory(page);
-});  
-
-test('validate mandatory errors [fluent example]', async () => {
+test('validate mandatory errors [fluent example]', async ({open}) => {
     const contactPage = await open(HomePage)
         .then(_=>_.clickContactMenu())
         .then(_=>_.clickSubmitButton());
@@ -21,7 +14,7 @@ test('validate mandatory errors [fluent example]', async () => {
     expect(await contactPage.getMessageError()).toBe('Message is required');
 });
 
-test('validate mandatory errors [stepped example]', async () => {
+test('validate mandatory errors [stepped example]', async ({open}) => {
     const homePage = await open(HomePage);
     const contactPage = await homePage.clickContactMenu();
     await contactPage.clickSubmitButton();
@@ -31,7 +24,7 @@ test('validate mandatory errors [stepped example]', async () => {
     expect(await contactPage.getMessageError()).toBe('Message is required');
 });
 
-test('validate mandatory errors can be fixed [fluent example]', async ()=> {
+test('validate mandatory errors can be fixed [fluent example]', async ({open}) => {
     const contactPage = await open(HomePage)
         .then(_=>_.clickContactMenu())
         .then(_=>_.clickSubmitButton())
@@ -44,7 +37,7 @@ test('validate mandatory errors can be fixed [fluent example]', async ()=> {
     expect(await contactPage.getMessageError()).toBe('');
 });
 
-test('validate mandatory errors can be fixed [stepped example]', async ()=> {
+test('validate mandatory errors can be fixed [stepped example]', async ({open}) => {
     const homePage = await open(HomePage);
     const contactPage = await homePage.clickContactMenu();
     await contactPage.clickSubmitButton();
@@ -57,7 +50,7 @@ test('validate mandatory errors can be fixed [stepped example]', async ()=> {
     expect(await contactPage.getMessageError()).toBe('');
 });
 
-test('validate successful submittion [fluent example]', async ()=> {
+test('validate successful submittion [fluent example]', async ({open}) => {
     const contactPage = await open(HomePage)
         .then(_=>_.clickContactMenu())
         .then(_=>_.setForename('Juan'))
@@ -68,7 +61,7 @@ test('validate successful submittion [fluent example]', async ()=> {
     expect(await contactPage.getSuccessMessage()).toBe('Thanks Juan, we appreciate your feedback.');
 });
 
-test('validate successful submittion [stepped example]', async ()=> {
+test('validate successful submittion [stepped example]', async ({open}) => {
     const homePage = await open(HomePage);
     const contactPage = await homePage.clickContactMenu();
     await contactPage.setForename('Juan');
@@ -92,7 +85,7 @@ const parameterizedTestAPI = test.extend<TestAPIContactData>({
     }
 });
 
-parameterizedTestAPI('validate successful submittion [api data driven example]', async ({ apiContactData: data }) => {
+parameterizedTestAPI('validate successful submittion [api data driven example]', async ({ apiContactData: data, open }) => {
     const homePage = await open(HomePage);
     const contactPage = await homePage.clickContactMenu();
     await contactPage.clickContactMenu();
@@ -110,7 +103,7 @@ parameterizedTestAPI('validate successful submittion [api data driven example]',
  */
 const contactData = new ContactDataProvider('specs/data/contact_data.json').getData();
 contactData.forEach(data => {
-    test(`validate successful submittion [json data driven example] - ${data.forename}`, async () => {
+    test(`validate successful submittion [json data driven example] - ${data.forename}`, async ({open}) => {
         const homePage = await open(HomePage);
         const contactPage = await homePage.clickContactMenu();
         await contactPage.clickContactMenu();

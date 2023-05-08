@@ -1,15 +1,8 @@
-import { test, expect, Page } from '@playwright/test';
 import { LoginData } from '../model/data';
 import { HomePage } from '../model/pages';
-import beforeEach, { Open, openFactory } from './BaseTests'; 
+import { test, expect } from './BaseTests'; 
 
-let open: Open;
-test.beforeEach(async ({ page }) => {
-    beforeEach;
-    open = openFactory(page);
-});
-
-test('validate successful login [fluent example]', async () => {
+test('validate successful login [fluent example]', async ({open}) => {
     const user = await open(HomePage)
         .then(_=>_.clickShopMenu())
         .then(_=>_.clickLoginMenu())
@@ -21,7 +14,7 @@ test('validate successful login [fluent example]', async () => {
     expect(user).toBe('someone');
 });
 
-test('validate successful login [stepped example]', async () => {
+test('validate successful login [stepped example]', async ({open}) => {
     const homePage = await open(HomePage);
     const loginDialog = await homePage.clickLoginMenu();
     await loginDialog.setUsername('someone');
@@ -35,9 +28,9 @@ test('validate successful login [stepped example]', async () => {
 test.describe('data driven login tests', () => {
     const dataset: LoginData[] = [
         {username: 'someone', password: 'letmein'},
-        {username: 'someoneelse', password: 'letmein'}]; 
+        {username: 'someoneelse', password: 'letmein'}];
     dataset.forEach(data => {
-        test(`validate successful logout [fluent example] - ${data.username}`, async () => {
+        test(`validate successful logout [fluent example] - ${data.username}`, async ({open}) => {
             const user = await open(HomePage)
                 .then(_=>_.clickLoginMenu())
                 .then(_=>_.login(data))
@@ -46,7 +39,7 @@ test.describe('data driven login tests', () => {
                 .then(_=>_.getUser());
             expect(user).toBe('');
         });
-        test(`validate successful logout [stepped example] - ${data.username}`, async () => {
+        test(`validate successful logout [stepped example] - ${data.username}`, async ({open}) => {
             const homePage = await open(HomePage);
             const loginDialog = await homePage.clickLoginMenu();
             await loginDialog.login(data);

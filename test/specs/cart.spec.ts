@@ -1,15 +1,7 @@
-import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../model/pages';
-import beforeEach, { openFactory, Open } from './BaseTests'; 
+import { test, expect} from './BaseTests'; 
 
-let open: Open;
-test.beforeEach(async ({ page }) => {
-    beforeEach;
-    open = openFactory(page);
-});
-
-
-test('validate cart price [fluent example]', async () => {
+test('validate cart price [fluent example]', async ({open}) => {
     const product = await open(HomePage)
         .then(_=>_.clickShopMenu())
         .then(_=>_.getProduct(async p => await p.getTitle()==='Stuffed Frog'));
@@ -20,7 +12,7 @@ test('validate cart price [fluent example]', async () => {
     expect(price).toBeCloseTo(cartPrice);
 });
 
-test('validate cart price [stepped example]', async () => {
+test('validate cart price [stepped example]', async ({open}) => {
     const homePage = await open(HomePage);
     const shopPage = await homePage.clickShopMenu();
     const product = await shopPage.getProduct(async p => await p.getTitle()==='Stuffed Frog');
@@ -31,7 +23,7 @@ test('validate cart price [stepped example]', async () => {
     expect(price).toBeCloseTo(cartPrice);
 });
 
-test('validate cart subtotals [fluent example]', async () => {
+test('validate cart subtotals [fluent example]', async ({open}) => {
     const cartPage = await open(HomePage)
         .then(_=>_.clickShopMenu())
         .then(_=>_.getProduct(async p => await p.getTitle()==='Stuffed Frog'))
@@ -43,7 +35,7 @@ test('validate cart subtotals [fluent example]', async () => {
     expect(price*quantity).toBeCloseTo(subtotal);
 });
 
-test('validate cart subtotals [stepped example]', async () => {
+test('validate cart subtotals [stepped example]', async ({open}) => {
     const homePage = await open(HomePage);
     const shopPage = await homePage.clickShopMenu();
     const product = await shopPage.getProduct(async p => await p.getTitle()==='Stuffed Frog');
