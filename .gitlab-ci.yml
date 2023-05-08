@@ -35,7 +35,7 @@ report:
     url: https://www.api.planittesting.com/prod/dot/upload/junit
   
   before_script:
-    - apk add jq
+    - apt install jq
   
   image: python:latest
   
