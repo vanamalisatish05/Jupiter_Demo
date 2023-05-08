@@ -30,17 +30,14 @@ test:
 report:
   stage: report
 
-  # Use when calling via URL
-  environment:
-    name: prod
-    url: https://www.api.planittesting.com/prod/dot/upload/junit
+  # environment:
+  #   name: prod
+    # url: https://www.api.planittesting.com/prod/dot/upload/junit
 
   cache:
     paths:
       - .cache/pip
       - venv/
-  
-  image: python:latest
 
   before_script:
     - python --version ; pip --version
