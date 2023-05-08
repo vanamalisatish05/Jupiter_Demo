@@ -8,6 +8,7 @@ variables:
   BUILD_ID:
     value: '1.0'
     description: 'Build id of upload'
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 stages:
   - test
@@ -33,15 +34,25 @@ report:
   environment:
     name: prod
     url: https://www.api.planittesting.com/prod/dot/upload/junit
+
+  cache:
+    paths:
+      - .cache/pip
+      - venv/
   
   image: python:latest
+
+  before_script:
+    - python --version ; pip --version
+    - pip install virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
   
   script:
     # Assign BrowserName and BrowserVersion to variables from metadata.json
-    - browserName$(jq .browserName metadata.json)
-    - browserVersion$(jq .browserVersion metadata.json)
+    - browserName=$(jq .browserName metadata.json)
+    - browserVersion=$(jq .browserVersion metadata.json)
     # Install planit-cli
     - pip install planit --index-url https://gitlab-ci-token:${CI_JOB_TOKEN}@git.planittesting.com/api/v4/projects/${CI_PROJECT_ID}/packages/pypi/simple
     # Push to Planit DoT
     - planit dot upload test-results/results.xml --metadata metadata.yaml --token $DOT_API_TOKEN --build_id $BUILD_ID --browsername $browserName --browserversion $browserVersion
-
