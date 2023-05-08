@@ -26,6 +26,8 @@ test:
     reports:
       junit:
         - test-results/*.xml
+    paths:
+      - metadata.json
 
 report:
   stage: report
