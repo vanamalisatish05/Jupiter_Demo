@@ -30,6 +30,8 @@ test:
 
 report:
   stage: report
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "schedule"
   cache:
     paths:
       - .cache/pip
