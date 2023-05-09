@@ -1,14 +1,7 @@
-import { test, expect, Page } from '@playwright/test';
 import { HomePage } from '../model/pages';
-import beforeEach, { Open, openFactory } from './BaseTests'; 
+import { test, expect } from './BaseTests';
 
-let open: Open;
-test.beforeEach(async ({ page }) => {
-    beforeEach;
-    open = openFactory(page);
-});
-
-test('validate product price [fluent example]', async () => {
+test('validate product price [fluent example]', async ({open}) => {
     const price = await open(HomePage)
         .then(_=>_.clickShopMenu())
         .then(_=>_.getProduct(async p => (await p.getTitle())==='Stuffed Frog'))
@@ -22,7 +15,7 @@ test('validate product price [fluent example]', async () => {
     expect(price2).toBeCloseTo(10.99);
 });
 
-test('validate product cart count [fluent example]', async () => {
+test('validate product cart count [fluent example]', async ({open}) => {
     const count = await open(HomePage)
         .then(_=>_.clickShopMenu())
         .then(_=>_.getProduct(async p => (await p.getTitle())==='Stuffed Frog'))

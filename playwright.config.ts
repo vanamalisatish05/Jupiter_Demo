@@ -1,20 +1,23 @@
 // playwright.config.ts
-import { PlaywrightTestConfig } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config();
 checkMandatoryEnvironmentVariables();
 const {PLAYWRIGHT_URL, PLAYWRIGHT_BROWSER, PLAYWRIGHT_HEADLESS} = readEnvironmentVariables();
 
-const config: PlaywrightTestConfig = {
-  reporter: [['html', {open: 'never'}],['list'],['junit', { outputFile: 'test-results/results.xml' }]],
+export default defineConfig ({
+  reporter: [
+    ['list'],
+    ['html', {open: 'never'}],
+    ['junit', { outputFile: 'test-results/results.xml' }]
+  ],
   use: {
     baseURL: PLAYWRIGHT_URL,
     browserName: PLAYWRIGHT_BROWSER,
     headless: PLAYWRIGHT_HEADLESS,
     screenshot: 'only-on-failure',
   },
-};
-export default config;
+})
 
 function checkMandatoryEnvironmentVariables() {
   const missing: {areMissing: boolean, list: string[]} = {areMissing: false, list: []};

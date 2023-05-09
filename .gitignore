@@ -3,6 +3,8 @@ playwright-report/
 tests_output/
 test-results/
 .env
+metadata.json
+
 # Logs
 logs
 *.log

@@ -1,0 +1,36 @@
+client:
+  name: Planit Testing
+  industry: Technology
+project:
+  name: JupiterPrime Playwright Template
+test:
+  manual-effort-minutes: 480
+  automation-maintanance-minutes: 60
+  automated: true
+  automation-priority: 1
+  type:
+    - end to end
+    - sit
+  language:
+    - typescript
+  framework:
+    - junit
+    - selenium
+    - playwright
+  cicd: true
+  os: ubuntu
+  docker: true
+  technology:
+    - webui
+application:
+  name: JupiterPrime
+  technology:
+    - ReactJS
+  language:
+    - typescript
+  location:
+    coordinates: -37.814, 144.96332
+    city: Melbourne
+    state: Victoria
+    country: Australia
+  methodology: agile
