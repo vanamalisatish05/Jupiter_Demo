@@ -1,10 +1,7 @@
 variables:
-  SELENIUM_URL: $SELENIUM_URL
-  SELENIUM_BROWSER: $SELENIUM_BROWSER
-  SELENIUM_HEADLESS: $SELENIUM_HEADLESS
   DOT_API_TOKEN: $DOT_API_TOKEN
+  DOT_CLI_PROJECT_ID: $DOT_CLI_PROJECT_ID
   CI_JOB_TOKEN: $CI_JOB_TOKEN
-  CI_PROJECT_ID: $CI_PROJECT_ID
   BUILD_ID:
     value: '1.0'
     description: 'Build id of upload'
@@ -28,30 +25,24 @@ test:
         - test-results/*.xml
     paths:
       - metadata.json
+      - metadata.yaml
 
 report:
   stage: report
-
-  # environment:
-  #   name: prod
-    # url: https://www.api.planittesting.com/prod/dot/upload/junit
-
   cache:
     paths:
       - .cache/pip
       - venv/
-
   before_script:
     - python --version ; pip --version
     - pip install virtualenv
     - python -m virtualenv venv
     - source venv/bin/activate
-  
   script:
-    # Assign BrowserName and BrowserVersion to variables from metadata.json
-    - browserName=$(jq .browserName metadata.json)
-    - browserVersion=$(jq .browserVersion metadata.json)
+    # Assign browserName and browserVersion to variables from metadata.json
+    - BROWSER_NAME=$(jq .browserName metadata.json)
+    - BROWSER_VERSION=$(jq .browserVersion metadata.json)
     # Install planit-cli
-    - pip install planit --index-url https://gitlab-ci-token:${CI_JOB_TOKEN}@git.planittesting.com/api/v4/projects/${CI_PROJECT_ID}/packages/pypi/simple
-    # Push to Planit DoT
-    - planit dot upload test-results/results.xml --metadata metadata.yaml --token $DOT_API_TOKEN --build_id $BUILD_ID --browsername $browserName --browserversion $browserVersion
+    - pip install planit --index-url https://gitlab-ci-token:${CI_JOB_TOKEN}@git.planittesting.com/api/v4/projects/${DOT_CLI_PROJECT_ID}/packages/pypi/simple
+    # Call planit-cli to upload test-results
+    - planit dot upload test-results/results.xml --metadata metadata.yaml --token $DOT_API_TOKEN --build_id $BUILD_ID --browsername $BROWSER_NAME --browserversion $BROWSER_VERSION
