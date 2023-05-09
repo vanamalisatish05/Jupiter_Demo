@@ -26,6 +26,7 @@ test:
     paths:
       - metadata.json
       - metadata.yaml
+      - test-results/
 
 report:
   stage: report
