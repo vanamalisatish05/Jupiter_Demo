@@ -33,7 +33,6 @@ report:
   when: always
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "schedule"
-    - if: $CI_COMMIT_BRANCH == 'fix/planit-cli-auto-latest-version'
   cache:
     paths:
       - .cache/pip
