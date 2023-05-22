@@ -29,7 +29,7 @@ application:
   language:
     - typescript
   location:
-    coordinates: -37.814, 144.96332
+    coordinates: POINT(144.96332 -37.814)
     city: Melbourne
     state: Victoria
     country: Australia
