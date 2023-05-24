@@ -1,6 +1,8 @@
-import { test as base, expect, Page } from '@playwright/test';
-import fs from 'fs';
-import BasePage from '../model/pages/BasePage';
+import * as fs from 'fs';
+import getPort from 'get-port'
+import type {Browser} from '@playwright/test'
+import { test as base, chromium, expect, Page } from '@playwright/test';
+import {BasePage} from '../model/pages';
 
 export const test = base.extend<{ captureMetadata: void, open: Open }>({
   // Writes a file containing test metadata
@@ -28,6 +30,28 @@ export const test = base.extend<{ captureMetadata: void, open: Open }>({
 
     await use(openFactory(page));
   }
+});
+
+
+export const lighthouseTest = base.extend<{}, {port: number; browser: Browser}>({
+  port: [
+    async ({}, use) => {
+      // const getPort = await import('get-port')
+      const port = await getPort();
+      await use(port);
+    },
+    {scope: 'worker'}
+  ],
+
+  browser: [
+    async ({port}, use) => {
+      const browser = await chromium.launch({
+        args: [`--remote-debugging-port=${port}`],
+      });
+      await use(browser);
+    },
+    { scope: 'worker'}
+  ],
 });
 
 export type Open = <T extends BasePage>(type: {
