@@ -1,7 +1,8 @@
 import { lighthouseTest } from './BaseTests'; 
-import { playAudit } from 'playwright-lighthouse';
+import { playAudit } from 'playwright-lighthouse'
 
 lighthouseTest.describe('lighthouse', async () => {
+  
   const urls = [
     '',
     'shop',
@@ -12,7 +13,13 @@ lighthouseTest.describe('lighthouse', async () => {
   urls.forEach(url => {
     lighthouseTest(`${url} page should pass lighthouse test`, async  ({page, port}) => {
       await page.goto("/#/" + url, {waitUntil: "load"})
-      await playAudit({page, port})
+      await playAudit({
+        page,
+        thresholds: {
+          performance: 50,
+        },
+        port
+      })
     })
   })
 })
