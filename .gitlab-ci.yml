@@ -1,11 +1,15 @@
 variables:
   DOT_API_TOKEN: $DOT_API_TOKEN
+  DOT_URL: $DOT_URL
   DOT_CLI_PROJECT_ID: $DOT_CLI_PROJECT_ID
   CI_JOB_TOKEN: $CI_JOB_TOKEN
   BUILD_ID:
     value: '1.0'
     description: 'Build id of upload'
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  FORCE_REPORT:
+    value: $FORCE_REPORT
+    description: If "true", always send a report to DoT
 
 stages:
   - test
@@ -32,7 +36,7 @@ report:
   stage: report
   when: always
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && ($CI_PIPELINE_SOURCE == "schedule" || $FORCE_REPORT == "true")
   cache:
     paths:
       - .cache/pip
@@ -47,7 +51,7 @@ report:
     - BROWSER_NAME=$(jq .browserName metadata.json)
     - BROWSER_VERSION=$(jq .browserVersion metadata.json)
     # Install planit-cli
-    - pip install planit --index-url https://gitlab-ci-token:${CI_JOB_TOKEN}@git.planittesting.com/api/v4/projects/${DOT_CLI_PROJECT_ID}/packages/pypi/simple
+    - pip install planit --index-url https://gitlab-ci-token:${CI_JOB_TOKEN}@git.planittesting.com/api/v4/projects/${DOT_CLI_PROJECT_ID}/packages/pypi/simple --upgrade --force-reinstall --pre
     # Call planit-cli to upload test-results
     - planit dot upload --datatype junit test-results/results.xml --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
     - planit dot upload --datatype lighthouse test-results/lighthouse/*.json --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
