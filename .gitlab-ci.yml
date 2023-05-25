@@ -55,3 +55,4 @@ report:
     # Call planit-cli to upload test-results
     - planit dot upload --datatype junit test-results/results.xml --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
     - planit dot upload --datatype lighthouse test-results/lighthouse/*.json --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
+    - planit dot upload --datatype playwright test-results/*/trace.zip --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
