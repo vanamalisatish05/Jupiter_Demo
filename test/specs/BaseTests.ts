@@ -48,6 +48,7 @@ export const lighthouseTest = base.extend<
     async ({ port }, use) => {
       const browser = await chromium.launch({
         args: [`--remote-debugging-port=${port}`],
+        headless: true
       });
       await use(browser);
     },
