@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as getPort from 'get-port'
+import getPort from 'get-port'
 import type {Browser} from '@playwright/test'
 import { test as base, chromium, expect, Page } from '@playwright/test';
 import BasePage from '../model/pages/BasePage';
