@@ -49,4 +49,5 @@ report:
     # Install planit-cli
     - pip install planit --index-url https://gitlab-ci-token:${CI_JOB_TOKEN}@git.planittesting.com/api/v4/projects/${DOT_CLI_PROJECT_ID}/packages/pypi/simple
     # Call planit-cli to upload test-results
-    - planit dot upload-junit test-results/results.xml --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
+    - planit dot upload --datatype junit test-results/results.xml --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
+    - planit dot upload --datatype lighthouse test-results/lighthouse/*.json --metadata metadata.yaml --token ${DOT_API_TOKEN} --build_id ${BUILD_ID} --browsername ${BROWSER_NAME} --browserversion ${BROWSER_VERSION}
