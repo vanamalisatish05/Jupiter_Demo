@@ -1,5 +1,5 @@
-import { LoginData } from '../model/data';
-import { HomePage } from '../model/pages';
+import { LoginData } from '@data';
+import { HomePage } from '@pages';
 import { test, expect } from './BaseTests'; 
 
 test('validate successful login [fluent example]', async ({open}) => {

@@ -1,4 +1,4 @@
-import { HomePage } from '../model/pages';
+import { HomePage } from '@pages';
 import { test, expect} from './BaseTests'; 
 
 test('validate cart price [fluent example]', async ({open}) => {

@@ -1,4 +1,4 @@
-import {ContactData} from '../data';
+import {ContactData} from '@data';
 import BasePage from './BasePage';
 
 export default class ContactPage extends BasePage {

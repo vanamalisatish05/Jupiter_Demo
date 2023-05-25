@@ -1,4 +1,4 @@
-import { ElementHandle, Locator } from "playwright-core";
+import { Locator } from "playwright-core";
 
 export default class Table {
     private rootElement: Locator;
