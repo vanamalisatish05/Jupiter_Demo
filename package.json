@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "type": "module",
   "scripts": {
-    "pretest": "tsc --incremental -p test/tsconfig.json",
-    "test": "playwright test -c tests-out",
+    "test": "playwright test",
     "report": "playwright show-report",
     "clean": "rm -rf test-results",
     "lint": "eslint './test/**/*.ts'",
