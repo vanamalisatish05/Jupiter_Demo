@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
-      "target": "ESNext",
-      "module": "commonjs",
-      "moduleResolution": "Node",
-      "sourceMap": true,
-      "outDir": "../tests-out",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["model/pages/index"],
+      "@data": ["model/data/index"],
+      "@components": ["model/components/index"]
+    },
+    "downlevelIteration": true
   }
 }
