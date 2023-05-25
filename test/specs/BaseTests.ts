@@ -1,8 +1,8 @@
 import * as fs from 'fs';
-import getPort from 'get-port'
+import * as getPort from 'get-port'
 import type {Browser} from '@playwright/test'
 import { test as base, chromium, expect, Page } from '@playwright/test';
-import {BasePage} from '../model/pages';
+import BasePage from '../model/pages/BasePage';
 
 export const test = base.extend<{ captureMetadata: void, open: Open }>({
   // Writes a file containing test metadata
