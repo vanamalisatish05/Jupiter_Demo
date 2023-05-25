@@ -1,4 +1,4 @@
-import { Table } from '../components';
+import { Table } from '@components';
 import BasePage from './BasePage';
 
 export default class CartPage extends BasePage {

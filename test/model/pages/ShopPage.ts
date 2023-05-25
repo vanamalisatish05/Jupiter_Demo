@@ -1,4 +1,4 @@
-import { Product } from '../components';
+import { Product } from '@components';
 import BasePage from './BasePage';
 
 export default class ShopPage extends BasePage {

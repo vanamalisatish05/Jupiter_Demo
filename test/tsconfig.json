@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["model/pages/index"],
+      "@data": ["model/data/index"],
+      "@components": ["model/components/index"]
+    },
+    "downlevelIteration": true
+  }
+}

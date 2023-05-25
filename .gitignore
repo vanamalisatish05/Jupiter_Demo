@@ -1,6 +1,7 @@
 !.gitignore
 playwright-report/
 tests_output/
+tests-out/
 test-results/
 .env
 metadata.json

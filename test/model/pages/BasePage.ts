@@ -1,6 +1,6 @@
-import { Locator, Page } from '@playwright/test';
-import { CartPage, ContactPage, ShopPage } from '.';
-import { LoginDialog, LogoutDialog } from '../components';
+import { Page } from '@playwright/test';
+import { CartPage, ContactPage, ShopPage } from '@pages';
+import { LoginDialog, LogoutDialog } from '@components';
 
 
 export default abstract class BasePage {

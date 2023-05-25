@@ -1,5 +1,5 @@
 import { Locator, Page } from 'playwright-core';
-import {HomePage} from '../../pages';
+import {HomePage} from '@pages';
 
 export default class LogoutDialog {
     private rootElement: Locator;
@@ -14,4 +14,3 @@ export default class LogoutDialog {
         return await new HomePage(page).init();
     }
 }
-

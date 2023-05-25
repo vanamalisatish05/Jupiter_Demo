@@ -1,23 +1,25 @@
-import { test as base, expect, Page } from '@playwright/test';
-import fs from 'fs';
+import * as fs from 'fs';
+import type { Browser } from '@playwright/test';
+import { test as base, chromium, expect, Page } from '@playwright/test';
 import BasePage from '../model/pages/BasePage';
+import getPort from 'get-port';
 
-export const test = base.extend<{ captureMetadata: void, open: Open }>({
+export const test = base.extend<{ captureMetadata: void; open: Open }>({
   // Writes a file containing test metadata
   captureMetadata: [
-    async ({ browser, browserName }, use, ) => {
+    async ({ browser, browserName }, use) => {
       await fs.promises.writeFile(
         'metadata.json',
         JSON.stringify({
           browserName: browserName,
           browswerVersion: browser.version(),
         }),
-        { encoding: 'utf8', flag: 'w'}
-      )
+        { encoding: 'utf8', flag: 'w' }
+      );
 
       await use();
     },
-    { auto: true }
+    { auto: true },
   ],
 
   // When 'open' is called, baseUrl page will be opened
@@ -27,7 +29,31 @@ export const test = base.extend<{ captureMetadata: void, open: Open }>({
     await page.goto(baseURL!);
 
     await use(openFactory(page));
-  }
+  },
+});
+
+export const lighthouseTest = base.extend<
+  {},
+  { port: number; browser: Browser }
+>({
+  port: [
+    async ({}, use) => {
+      const port = await getPort();
+      await use(port);
+    },
+    { scope: 'worker' },
+  ],
+
+  browser: [
+    async ({ port }, use) => {
+      const browser = await chromium.launch({
+        args: [`--remote-debugging-port=${port}`],
+        headless: true
+      });
+      await use(browser);
+    },
+    { scope: 'worker' },
+  ],
 });
 
 export type Open = <T extends BasePage>(type: {

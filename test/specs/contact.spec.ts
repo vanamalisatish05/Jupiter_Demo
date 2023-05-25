@@ -1,7 +1,7 @@
-import { ContactData } from '../model/data';
-import { HomePage } from '../model/pages';
+import { ContactData } from '@data';
+import { HomePage } from '@pages';
 import { test, expect } from './BaseTests'; 
-import { APIContactDataProvider, ContactDataProvider } from './dataProviders';
+import { APIContactDataProvider, ContactDataProvider } from './dataProviders/index';
 import { TestAPIContactData } from './dataProviders/APIContactDataProvider';
 
 test('validate mandatory errors [fluent example]', async ({open}) => {

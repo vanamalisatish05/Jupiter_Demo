@@ -1,5 +1,5 @@
 import { Locator } from 'playwright-core';
-import {ShopPage} from '../pages';
+import {ShopPage} from '@pages';
 
 export default class Product {
     private rootElement: Locator;

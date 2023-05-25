@@ -6,6 +6,7 @@ checkMandatoryEnvironmentVariables();
 const {PLAYWRIGHT_URL, PLAYWRIGHT_BROWSER, PLAYWRIGHT_HEADLESS} = readEnvironmentVariables();
 
 export default defineConfig ({
+  testDir: 'test',
   reporter: [
     ['list'],
     ['html', {open: 'never'}],
@@ -16,6 +17,7 @@ export default defineConfig ({
     browserName: PLAYWRIGHT_BROWSER,
     headless: PLAYWRIGHT_HEADLESS,
     screenshot: 'only-on-failure',
+    trace: 'on'
   },
 })
 
