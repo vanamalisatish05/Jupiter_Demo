@@ -18,8 +18,16 @@ lighthouseTest.describe('lighthouse', async () => {
         thresholds: {
           performance: 50,
         },
-        port
+        port,
+        reports: {
+          formats: {
+            json: true
+          },
+          name: `ligthouse-url:${url}-${new Date().toISOString()}`, //defaults to `lighthouse-${new Date().getTime()}`
+          directory: `${process.cwd()}/test-results/lighthouse`,
+        }
       })
+      await page.close();
     })
   })
 })
