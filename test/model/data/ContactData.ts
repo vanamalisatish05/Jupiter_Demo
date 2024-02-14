@@ -1,4 +1,3 @@
-/* eslint-disable semi */
 export default interface ContactData {
     forename: string;
     lastname: string;
