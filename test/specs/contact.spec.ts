@@ -79,7 +79,8 @@ test('validate successful submittion [stepped example]', async ({open}) => {
  * Data sourced this way will be passed directly to one test as a parameter
  */
 const parameterizedTestAPI = test.extend<TestAPIContactData>({
-    apiContactData: async ({ }, use) => {
+    // eslint-disable-next-line no-empty-pattern
+    apiContactData: async ({}, use) => {
         const data: ContactData = await new APIContactDataProvider().getData();
         await use(data);
     }

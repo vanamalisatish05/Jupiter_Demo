@@ -7,12 +7,12 @@ export default class CartPage extends BasePage {
         return this;
     }
 
-    private async getTable() {
+    private getTable() {
         return new Table(this.page.locator('.cart-items'));
     }
 
     async getPrice(title: string): Promise<number> {
-        const element = await (await this.getTable()).getValue('Item', title, 'Price');
+        const element = await (this.getTable()).getValue('Item', title, 'Price');
         const priceString = await element.innerText();
         return Number.parseFloat(
             priceString.replace(new RegExp('[^0-9\\.]+'), '')
@@ -20,15 +20,15 @@ export default class CartPage extends BasePage {
     }
 
     async getQuantity(title: string) {
-        const element = await (await this.getTable()).getValue('Item', title, 'Quantity');
-        const priceString = (await element.locator('input').getAttribute('value')) as string;
+        const element = await (this.getTable()).getValue('Item', title, 'Quantity');
+        const priceString = (await element.locator('input').getAttribute('value'));
         return Number.parseInt(
             priceString
         );
     }
 
     async getSubtotal(title: string) {
-        const element = await (await this.getTable()).getValue('Item', title, 'Subtotal');
+        const element = await (this.getTable()).getValue('Item', title, 'Subtotal');
         const priceString = await element.innerText();
         return Number.parseFloat(
             priceString.replace(new RegExp('[^0-9\\.]+'), '')
