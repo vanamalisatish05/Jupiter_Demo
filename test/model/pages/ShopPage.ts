@@ -14,6 +14,7 @@ export default class ShopPage extends BasePage {
             const product = new Product(rootElement, this);
             if (await comparison(product)) return product;
         }  
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw new Error(`Product with comparison ${comparison} not found`);
     }    
 }

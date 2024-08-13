@@ -1,7 +1,7 @@
 import { lighthouseTest } from './BaseTests'; 
 import { playAudit } from 'playwright-lighthouse'
 
-lighthouseTest.describe('lighthouse', async () => {
+lighthouseTest.describe('lighthouse', () => {
   
   const urls = [
     '',
@@ -11,7 +11,7 @@ lighthouseTest.describe('lighthouse', async () => {
   ]
   
   urls.forEach(url => {
-    lighthouseTest(`${url} page should pass lighthouse test`, async  ({page, port}) => {
+    lighthouseTest(`${url} page should pass lighthouse test`, async ({page, port}) => {
       await page.goto("/#/" + url, {waitUntil: "load"})
       await playAudit({
         page,
@@ -19,13 +19,13 @@ lighthouseTest.describe('lighthouse', async () => {
           performance: 50,
         },
         port,
-        reports: {
-          formats: {
-            json: true
-          },
-          name: `ligthouse-url:${url}-${new Date().toISOString()}`, //defaults to `lighthouse-${new Date().getTime()}`
-          directory: `${process.cwd()}/test-results/lighthouse`,
-        }
+        // reports: {
+        //   formats: {
+        //     json: true
+        //   },
+        //   name: `ligthouse-url:${url}-${new Date().toISOString()}`, //defaults to `lighthouse-${new Date().getTime()}`
+        //   directory: `${process.cwd()}/test-results/lighthouse`,
+        // }
       })
       await page.close();
     })

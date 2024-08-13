@@ -12,7 +12,7 @@ export const test = base.extend<{ captureMetadata: void; open: Open }>({
         'metadata.json',
         JSON.stringify({
           browserName: browserName,
-          browswerVersion: browser.version(),
+          browserVersion: browser.version(),
         }),
         { encoding: 'utf8', flag: 'w' }
       );
@@ -33,10 +33,11 @@ export const test = base.extend<{ captureMetadata: void; open: Open }>({
 });
 
 export const lighthouseTest = base.extend<
-  {},
+  object,
   { port: number; browser: Browser }
 >({
   port: [
+    // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
       const port = await getPort();
       await use(port);
@@ -56,13 +57,11 @@ export const lighthouseTest = base.extend<
   ],
 });
 
-export type Open = <T extends BasePage>(type: {
-  new (page: Page): T;
-}) => Promise<T>;
+export type Open = <T extends BasePage>(type: new (page: Page) => T) => Promise<T>;
 
 export const openFactory =
   (page: Page) =>
-  async <T extends BasePage>(type: { new (page: Page): T }): Promise<T> =>
+  async <T extends BasePage>(type: new (page: Page) => T): Promise<T> =>
     await new type(page).init();
 
 export { expect };

@@ -12,21 +12,18 @@
     "lint-fix": "yarn lint --fix"
   },
   "devDependencies": {
-    "@playwright/test": "^1.30.0",
+    "@eslint/js": "^9.6.0",
+    "@playwright/test": "^1.45.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/get-port": "^4.2.0",
-    "@types/node": "^20.2.3",
-    "@types/superagent": "^4.1.16",
-    "@types/supertest": "^2.0.12",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "dotenv": "^16.0.3",
-    "eslint": "^8.33.0",
-    "eslint-config-google": "^0.14.0",
-    "get-port": "^6.1.2",
-    "lighthouse": "^10.2.0",
-    "playwright-lighthouse": "^3.1.0",
-    "superagent": "^8.0.9",
-    "supertest": "^6.3.3",
-    "typescript": "^5.0.4"
-  }
+    "@types/node": "^20.14.9",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.6.0",
+    "get-port": "^7.1.0",
+    "lighthouse": "^12.1.0",
+    "playwright-lighthouse": "^4.0.0",
+    "typescript": "^5.5.2",
+    "typescript-eslint": "^7.14.1"
+  },
+  "packageManager": "yarn@4.3.1"
 }
