@@ -5,7 +5,7 @@ tests-out/
 test-results/
 .env
 metadata.json
-
+.idea/
 # Logs
 logs
 *.log
