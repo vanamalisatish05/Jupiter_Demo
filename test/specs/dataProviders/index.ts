@@ -1,2 +1,2 @@
-export {default as ContactDataProvider} from './ContactDataProvider';
-export {default as APIContactDataProvider} from './APIContactDataProvider';
+export {default as ContactDataProvider} from './ContactDataProvider.js';
+export {default as APIContactDataProvider} from './APIContactDataProvider.js';

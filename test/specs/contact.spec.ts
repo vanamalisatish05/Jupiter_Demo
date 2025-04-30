@@ -1,17 +1,17 @@
 import { ContactData } from '@data';
 import { HomePage } from '@pages';
-import { test, expect } from './BaseTests'; 
-import { APIContactDataProvider, ContactDataProvider } from './dataProviders/index';
-import { TestAPIContactData } from './dataProviders/APIContactDataProvider';
+import { test, expect } from './BaseTests.js'; 
+import { APIContactDataProvider, ContactDataProvider } from './dataProviders/index.js';
+import { TestAPIContactData } from './dataProviders/APIContactDataProvider.js';
 
 test('validate mandatory errors [fluent example]', async ({open}) => {
     const contactPage = await open(HomePage)
         .then(_=>_.clickContactMenu())
         .then(_=>_.clickSubmitButton());
 
-    expect(await contactPage.getForenameError()).toBe('Forename is required');
-    expect(await contactPage.getEmailError()).toBe('Email is required');
-    expect(await contactPage.getMessageError()).toBe('Message is required');
+    expect(await contactPage.getForenameError()).toBe('Forename is required.');
+    expect(await contactPage.getEmailError()).toBe('Email is required.');
+    expect(await contactPage.getMessageError()).toBe('Message is required.');
 });
 
 test('validate mandatory errors [stepped example]', async ({open}) => {
@@ -19,9 +19,9 @@ test('validate mandatory errors [stepped example]', async ({open}) => {
     const contactPage = await homePage.clickContactMenu();
     await contactPage.clickSubmitButton();
 
-    expect(await contactPage.getForenameError()).toBe('Forename is required');
-    expect(await contactPage.getEmailError()).toBe('Email is required');
-    expect(await contactPage.getMessageError()).toBe('Message is required');
+    expect(await contactPage.getForenameError()).toBe('Forename is required.');
+    expect(await contactPage.getEmailError()).toBe('Email is required.');
+    expect(await contactPage.getMessageError()).toBe('Message is required.');
 });
 
 test('validate mandatory errors can be fixed [fluent example]', async ({open}) => {

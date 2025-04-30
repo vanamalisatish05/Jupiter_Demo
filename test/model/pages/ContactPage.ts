@@ -1,5 +1,7 @@
-import {ContactData} from '@data';
-import BasePage from './BasePage';
+
+
+import { ContactData } from '@data';
+import BasePage from './BasePage.js';
 
 export default class ContactPage extends BasePage {
     // eslint-disable-next-line @typescript-eslint/require-await
@@ -9,8 +11,8 @@ export default class ContactPage extends BasePage {
     }
 
     async getSuccessMessage(): Promise<string> {
-        await this.page.locator('.alert-success').waitFor({state: 'visible', timeout: 60000});
-        return this.page.locator('.alert-success').innerText();
+        await this.page.locator('#success-message').waitFor({state: 'attached', timeout: 60000});
+        return this.page.locator('#success-message').innerText();
     }
 
     async setMessage(message: string): Promise<ContactPage> {
@@ -68,7 +70,7 @@ export default class ContactPage extends BasePage {
     }
 
     async clickSubmitButton(): Promise<ContactPage> {
-        await this.page.locator('#contact-submit-btn').click();
+        await this.page.locator('#submit-button').click();
         return this;
     }
 }

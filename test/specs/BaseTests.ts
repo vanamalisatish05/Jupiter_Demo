@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import type { Browser } from '@playwright/test';
 import { test as base, chromium, expect, Page } from '@playwright/test';
-import BasePage from '../model/pages/BasePage';
+import BasePage from '../model/pages/BasePage.js';
 import getPort from 'get-port';
 
 export const test = base.extend<{ captureMetadata: void; open: Open }>({

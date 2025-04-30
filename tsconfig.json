@@ -1,7 +1,14 @@
 {
-    "compilerOptions": {
-      "module": "ES2020",
-      "moduleResolution": "node",
-      "downlevelIteration": true,
+  "compilerOptions": {
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "downlevelIteration": true,
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["test/model/pages/index.js"],
+      "@data": ["test/model/data/index.js"],
+      "@components": ["test/model/components/index.js"]
     }
   }
+}

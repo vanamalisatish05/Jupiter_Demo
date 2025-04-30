@@ -1,5 +1,5 @@
 import { HomePage } from '@pages';
-import { test, expect } from './BaseTests';
+import { test, expect } from './BaseTests.js';
 
 test('validate product price [fluent example]', async ({open}) => {
     const price = await open(HomePage)

@@ -1,5 +1,6 @@
+
 import { Table } from '@components';
-import BasePage from './BasePage';
+import BasePage from './BasePage.js';
 
 export default class CartPage extends BasePage {
     // eslint-disable-next-line @typescript-eslint/require-await
@@ -23,7 +24,7 @@ export default class CartPage extends BasePage {
         const element = await (this.getTable()).getValue('Item', title, 'Quantity');
         const priceString = (await element.locator('input').getAttribute('value'));
         return Number.parseInt(
-            priceString
+            priceString!
         );
     }
 

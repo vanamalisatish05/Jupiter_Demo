@@ -1,5 +1,5 @@
-import {ContactData} from '../../model/data';
-import DataProvider from './DataProvider';
+import {ContactData} from '../../model/data/index.js';
+import DataProvider from './DataProvider.js';
 
 export default class ContactDataProvider extends DataProvider<ContactData[]> {
     public getData(): ContactData[] {

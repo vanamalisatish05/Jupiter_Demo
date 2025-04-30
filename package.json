@@ -13,17 +13,17 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.6.0",
-    "@playwright/test": "^1.45.0",
-    "@types/eslint__js": "^8.42.3",
+    "@playwright/test": "^1.52.0",
+    "@types/eslint__js": "^9.14.0",
     "@types/get-port": "^4.2.0",
-    "@types/node": "^20.14.9",
-    "dotenv": "^16.4.5",
-    "eslint": "^9.6.0",
+    "@types/node": "^22.15.3",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.25.1",
     "get-port": "^7.1.0",
-    "lighthouse": "^12.1.0",
+    "lighthouse": "^12.6.0",
     "playwright-lighthouse": "^4.0.0",
-    "typescript": "^5.5.2",
-    "typescript-eslint": "^7.14.1"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1"
   },
-  "packageManager": "yarn@4.3.1"
+  "packageManager": "yarn@4.9.1"
 }

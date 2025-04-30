@@ -1,6 +1,6 @@
 import { LoginData } from '@data';
 import { HomePage } from '@pages';
-import { test, expect } from './BaseTests'; 
+import { test, expect } from './BaseTests.js'; 
 
 test('validate successful login [fluent example]', async ({open}) => {
     const user = await open(HomePage)
@@ -11,7 +11,7 @@ test('validate successful login [fluent example]', async ({open}) => {
         .then(_=>_.clickAgreeCheckBox())
         .then(_=>_.clickLoginButton())
         .then(_=>_.getUser());
-    expect(user).toBe('someone');
+    expect(user).toBe('Hi someone');
 });
 
 test('validate successful login [stepped example]', async ({open}) => {
@@ -22,7 +22,7 @@ test('validate successful login [stepped example]', async ({open}) => {
     await loginDialog.clickAgreeCheckBox();
     await loginDialog.clickLoginButton();
     const user = await homePage.getUser();
-    expect(user).toBe('someone');
+    expect(user).toBe('Hi someone');
 });
 
 test.describe('data driven login tests', () => {

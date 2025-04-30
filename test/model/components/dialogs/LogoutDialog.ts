@@ -1,5 +1,5 @@
+import { HomePage } from '@pages';
 import { Locator } from 'playwright-core';
-import {HomePage} from '@pages';
 
 export default class LogoutDialog {
     private rootElement: Locator;
@@ -9,7 +9,7 @@ export default class LogoutDialog {
     }
 
     async clickLogoutButton(): Promise<HomePage> {
-        await this.rootElement.locator('.btn-success').click();
+        await this.rootElement.locator('[id="modal-yes-button"]').click();
         const page = (await(await this.rootElement.elementHandle())!.ownerFrame())!.page();
         return await new HomePage(page).init();
     }
