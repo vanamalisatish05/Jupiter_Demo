@@ -20,6 +20,7 @@ export const test = base.extend<{ captureMetadata: void; open: Open }>({
     await page.goto(baseURL!);
 
     await use(openFactory(page));
+    
   },
 });
 
