@@ -1,0 +1,75 @@
+name: Playwright CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: true
+      PLAYWRIGHT_URL: ${{ secrets.PLAYWRIGHT_URL || vars.PLAYWRIGHT_URL }}
+      PLAYWRIGHT_BROWSER: ${{ vars.PLAYWRIGHT_BROWSER || secrets.PLAYWRIGHT_BROWSER || '' }}
+      PLAYWRIGHT_HEADLESS: ${{ vars.PLAYWRIGHT_HEADLESS || secrets.PLAYWRIGHT_HEADLESS || '' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Validate required environment variables
+        shell: bash
+        run: |
+          if [ -z "${PLAYWRIGHT_URL}" ]; then
+            echo "PLAYWRIGHT_URL is not configured."
+            echo "Set it as a GitHub Actions repository secret or variable before running this workflow."
+            exit 1
+          fi
+
+      - name: Run lint
+        run: yarn lint
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: yarn test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -4,6 +4,7 @@ tests_output/
 tests-out/
 test-results/
 .env
+opencode.json
 metadata.json
 .idea/
 # Logs
