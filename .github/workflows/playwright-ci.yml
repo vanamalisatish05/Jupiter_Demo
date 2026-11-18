@@ -22,9 +22,9 @@ jobs:
     timeout-minutes: 30
     env:
       CI: true
-      PLAYWRIGHT_URL: ${{ secrets.PLAYWRIGHT_URL || vars.PLAYWRIGHT_URL }}
-      PLAYWRIGHT_BROWSER: ${{ vars.PLAYWRIGHT_BROWSER || secrets.PLAYWRIGHT_BROWSER || '' }}
-      PLAYWRIGHT_HEADLESS: ${{ vars.PLAYWRIGHT_HEADLESS || secrets.PLAYWRIGHT_HEADLESS || '' }}
+      PLAYWRIGHT_URL: http://jupiter2.cloud.planittesting.com
+      PLAYWRIGHT_BROWSER: chromium
+      PLAYWRIGHT_HEADLESS: true
 
     steps:
       - name: Checkout repository

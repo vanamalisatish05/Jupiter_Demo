@@ -14,37 +14,39 @@ export default abstract class BasePage {
     abstract init(): Promise<this>;
 
     async clickContactMenu(): Promise<ContactPage> {
-        await this.page.locator('#menu-contact').click();
+        await this.page.locator('#nav-contact a').click();
         return await new ContactPage(this.page).init();
     }
 
     async clickShopMenu(): Promise<ShopPage> {
-        await this.page.locator('#menu-shop').click();
+        await this.page.locator('#nav-shop a').click();
         return await new ShopPage(this.page).init();
     }
 
     async clickCartMenu(): Promise<CartPage> {
-        await this.page.locator('#menu-cart').click();
+        await this.page.locator('#nav-cart a').click();
         return await new CartPage(this.page).init();
     }
 
     async clickLoginMenu(): Promise<LoginDialog<this>> {
-        await this.page.locator('#menu-login').click();
-        const root = this.page.locator('#login-modal');
+        await this.page.locator('#nav-login a').click();
+        const root = this.page.locator('.popup.modal');
+        await root.waitFor({ state: 'visible' });
         return new LoginDialog(root, this);
     }
 
     async clickLogoutMenu(): Promise<LogoutDialog> {
-        await this.page.locator('#menu-logout').click();
-        const root = this.page.locator('#logout-modal');
+        await this.page.locator('#nav-logout a').click();
+        const root = this.page.locator('.popup.modal');
+        await root.waitFor({ state: 'visible' });
         return new LogoutDialog(root);
     }
 
     async getUser(): Promise<string> {
-        return await this.page.locator('#login-greeting').innerText();
+        return await this.page.locator('#nav-user .user').innerText();
     }
 
     async getCartCount(): Promise<number> {
-        return Number.parseInt(await this.page.locator('#cart-count').innerText());
+        return Number.parseInt(await this.page.locator('#nav-cart .cart-count').innerText());
     }
 }

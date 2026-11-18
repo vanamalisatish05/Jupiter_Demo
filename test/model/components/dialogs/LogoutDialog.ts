@@ -9,8 +9,14 @@ export default class LogoutDialog {
     }
 
     async clickLogoutButton(): Promise<HomePage> {
-        await this.rootElement.locator('[id="modal-yes-button"]').click();
-        const page = (await(await this.rootElement.elementHandle())!.ownerFrame())!.page();
+        await this.rootElement.getByRole('link', { name: 'Logout' }).click();
+        const handle = await this.rootElement.elementHandle();
+        if (!handle) throw new Error('Logout dialog root element is not available');
+
+        const frame = await handle.ownerFrame();
+        if (!frame) throw new Error('Unable to resolve frame for logout dialog');
+
+        const page = frame.page();
         return await new HomePage(page).init();
     }
 }

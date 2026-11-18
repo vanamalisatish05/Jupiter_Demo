@@ -1,22 +1,13 @@
-import * as fs from 'fs';
 import type { Browser } from '@playwright/test';
 import { test as base, chromium, expect, Page } from '@playwright/test';
 import BasePage from '../model/pages/BasePage.js';
 import getPort from 'get-port';
 
 export const test = base.extend<{ captureMetadata: void; open: Open }>({
-  // Writes a file containing test metadata
+  // Reserved for future metadata capture without affecting parallel test runs
   captureMetadata: [
-    async ({ browser, browserName }, use) => {
-      await fs.promises.writeFile(
-        'metadata.json',
-        JSON.stringify({
-          browserName: browserName,
-          browserVersion: browser.version(),
-        }),
-        { encoding: 'utf8', flag: 'w' }
-      );
-
+    // eslint-disable-next-line no-empty-pattern
+    async ({}, use) => {
       await use();
     },
     { auto: true },

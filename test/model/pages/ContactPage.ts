@@ -4,15 +4,16 @@ import { ContactData } from '@data';
 import BasePage from './BasePage.js';
 
 export default class ContactPage extends BasePage {
-    // eslint-disable-next-line @typescript-eslint/require-await
     async init(): Promise<this> {
-        // TODO put here code that waits for page to be ready
+        await this.page.waitForURL(/#\/contact/);
+        await this.page.locator('#forename').waitFor({ state: 'visible' });
         return this;
     }
 
     async getSuccessMessage(): Promise<string> {
-        await this.page.locator('#success-message').waitFor({state: 'attached', timeout: 60000});
-        return this.page.locator('#success-message').innerText();
+        const successAlert = this.page.locator('.alert-success');
+        await successAlert.waitFor({state: 'visible', timeout: 60000});
+        return successAlert.innerText();
     }
 
     async setMessage(message: string): Promise<ContactPage> {
@@ -70,7 +71,7 @@ export default class ContactPage extends BasePage {
     }
 
     async clickSubmitButton(): Promise<ContactPage> {
-        await this.page.locator('#submit-button').click();
+        await this.page.locator('#contact-submit-btn').click();
         return this;
     }
 }

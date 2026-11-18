@@ -9,9 +9,9 @@ test('validate mandatory errors [fluent example]', async ({open}) => {
         .then(_=>_.clickContactMenu())
         .then(_=>_.clickSubmitButton());
 
-    expect(await contactPage.getForenameError()).toBe('Forename is required.');
-    expect(await contactPage.getEmailError()).toBe('Email is required.');
-    expect(await contactPage.getMessageError()).toBe('Message is required.');
+    expect(await contactPage.getForenameError()).toBe('Forename is required');
+    expect(await contactPage.getEmailError()).toBe('Email is required');
+    expect(await contactPage.getMessageError()).toBe('Message is required');
 });
 
 test('validate mandatory errors [stepped example]', async ({open}) => {
@@ -19,9 +19,9 @@ test('validate mandatory errors [stepped example]', async ({open}) => {
     const contactPage = await homePage.clickContactMenu();
     await contactPage.clickSubmitButton();
 
-    expect(await contactPage.getForenameError()).toBe('Forename is required.');
-    expect(await contactPage.getEmailError()).toBe('Email is required.');
-    expect(await contactPage.getMessageError()).toBe('Message is required.');
+    expect(await contactPage.getForenameError()).toBe('Forename is required');
+    expect(await contactPage.getEmailError()).toBe('Email is required');
+    expect(await contactPage.getMessageError()).toBe('Message is required');
 });
 
 test('validate mandatory errors can be fixed [fluent example]', async ({open}) => {
@@ -89,7 +89,6 @@ const parameterizedTestAPI = test.extend<TestAPIContactData>({
 parameterizedTestAPI('validate successful submittion [api data driven example]', async ({ apiContactData: data, open }) => {
     const homePage = await open(HomePage);
     const contactPage = await homePage.clickContactMenu();
-    await contactPage.clickContactMenu();
     await contactPage.setContactData(data);
     await contactPage.clickSubmitButton();
 
@@ -107,7 +106,6 @@ contactData.forEach(data => {
     test(`validate successful submittion [json data driven example] - ${data.forename}`, async ({open}) => {
         const homePage = await open(HomePage);
         const contactPage = await homePage.clickContactMenu();
-        await contactPage.clickContactMenu();
         await contactPage.setContactData(data);
         await contactPage.clickSubmitButton();
     

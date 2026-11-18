@@ -9,7 +9,9 @@ export default class Table {
 
     private async getColumnIndex(column: string): Promise<number> {
         const handle = await this.rootElement.elementHandle();
-        const columnElementsPromises = (await handle!.$$('thead th')).map(element => element.innerText());
+        if (!handle) throw new Error('Table root element is not available');
+
+        const columnElementsPromises = (await handle.$$('thead th')).map(element => element.innerText());
         const columnElements = await Promise.all(columnElementsPromises);
         return columnElements.findIndex(entry => entry===column);
     }

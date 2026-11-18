@@ -11,7 +11,7 @@ export default class LoginDialog<T> {
     }
 
     async clickLoginButton(): Promise<T> {
-        await this.rootElement.locator('[id="modal-log-in-button"]').click();
+        await this.rootElement.getByRole('button', { name: 'Login' }).click();
         return this.parent;
     }
 
@@ -21,12 +21,12 @@ export default class LoginDialog<T> {
     }
 
     async setPassword(password: string): Promise<LoginDialog<T>> {
-        await this.rootElement.locator('#password').fill(password);
+        await this.rootElement.locator('#loginPassword').fill(password);
         return this;
     }
 
     async setUsername(username: string): Promise<LoginDialog<T>> {
-        await this.rootElement.locator('#username').fill(username);
+        await this.rootElement.locator('#loginUserName').fill(username);
         return this;
     }
 

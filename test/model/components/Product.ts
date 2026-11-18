@@ -11,17 +11,17 @@ export default class Product {
     }
 
     async getTitle(): Promise<string> {
-        return this.rootElement.locator('[data-locator="product-title"]').innerText();
+        return this.rootElement.locator('.product-title').innerText();
     }
 
     async getPrice(): Promise<number> {
-        return Number((await this.rootElement.locator('[data-locator="product-price"]')
+        return Number((await this.rootElement.locator('.product-price')
             .innerText())
             .replace(new RegExp('[^0-9\\.]+'), ''));
     }
 
     async clickBuyButton(times = 1): Promise<ShopPage> {
-        await this.rootElement.locator('[data-locator="add-to-cart-button"]').click({clickCount: times});
+        await this.rootElement.locator('.btn-success').click({clickCount: times});
         return this.parent;
     }
 }

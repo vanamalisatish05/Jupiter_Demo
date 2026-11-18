@@ -11,7 +11,7 @@ test('validate successful login [fluent example]', async ({open}) => {
         .then(_=>_.clickAgreeCheckBox())
         .then(_=>_.clickLoginButton())
         .then(_=>_.getUser());
-    expect(user).toBe('Hi someone');
+    expect(user).toBe('someone');
 });
 
 test('validate successful login [stepped example]', async ({open}) => {
@@ -22,7 +22,7 @@ test('validate successful login [stepped example]', async ({open}) => {
     await loginDialog.clickAgreeCheckBox();
     await loginDialog.clickLoginButton();
     const user = await homePage.getUser();
-    expect(user).toBe('Hi someone');
+    expect(user).toBe('someone');
 });
 
 test.describe('data driven login tests', () => {
