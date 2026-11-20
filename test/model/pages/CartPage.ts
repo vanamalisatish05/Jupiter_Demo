@@ -1,6 +1,6 @@
 
 import { Table } from '@components';
-import BasePage from './BasePage.js';
+import BasePage from './BasePage.ts';
 
 export default class CartPage extends BasePage {
     // eslint-disable-next-line @typescript-eslint/require-await

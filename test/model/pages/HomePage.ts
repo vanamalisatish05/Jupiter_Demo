@@ -1,4 +1,4 @@
-import BasePage from './BasePage.js';
+import BasePage from './BasePage.ts';
 
 export default class HomePage extends BasePage {
     // eslint-disable-next-line @typescript-eslint/require-await

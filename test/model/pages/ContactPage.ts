@@ -1,7 +1,7 @@
 
 
 import { ContactData } from '@data';
-import BasePage from './BasePage.js';
+import BasePage from './BasePage.ts';
 
 export default class ContactPage extends BasePage {
     async init(): Promise<this> {

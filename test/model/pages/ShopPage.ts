@@ -1,6 +1,6 @@
 
 import { Product } from '@components';
-import BasePage from './BasePage.js';
+import BasePage from './BasePage.ts';
 
 export default class ShopPage extends BasePage {
     async init(): Promise<this> {

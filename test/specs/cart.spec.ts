@@ -1,5 +1,5 @@
 import { HomePage } from '@pages';
-import { test, expect} from './BaseTests.js'; 
+import { test, expect} from './BaseTests.ts'; 
 
 test('validate cart price [fluent example]', async ({open}) => {
     const product = await open(HomePage)

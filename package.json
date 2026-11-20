@@ -6,8 +6,12 @@
   "type": "module",
   "scripts": {
     "test": "playwright test",
+    "test:smoke": "playwright test --grep \"validate successful login \\[fluent example\\]|validate mandatory errors \\[fluent example\\]|validate cart price \\[fluent example\\]|validate product price \\[fluent example\\]\"",
+    "test:e2e": "playwright test test/specs/login.spec.ts test/specs/shop.spec.ts test/specs/cart.spec.ts test/specs/contact.spec.ts --grep-invert \"data driven\"",
+    "test:full": "playwright test",
     "report": "playwright show-report",
     "clean": "rm -rf test-results",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint './test/**/*.ts'",
     "lint-fix": "yarn lint --fix"
   },

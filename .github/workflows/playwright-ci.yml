@@ -16,15 +16,16 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CI: true
+  PLAYWRIGHT_URL: http://jupiter2.cloud.planittesting.com
+  PLAYWRIGHT_BROWSER: chromium
+  PLAYWRIGHT_HEADLESS: true
+
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      CI: true
-      PLAYWRIGHT_URL: http://jupiter2.cloud.planittesting.com
-      PLAYWRIGHT_BROWSER: chromium
-      PLAYWRIGHT_HEADLESS: true
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -43,29 +44,68 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Validate required environment variables
-        shell: bash
-        run: |
-          if [ -z "${PLAYWRIGHT_URL}" ]; then
-            echo "PLAYWRIGHT_URL is not configured."
-            echo "Set it as a GitHub Actions repository secret or variable before running this workflow."
-            exit 1
-          fi
-
       - name: Run lint
         run: yarn lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.1 --activate
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run typecheck
+        run: yarn typecheck
+
+  smoke-tests:
+    needs:
+      - lint
+      - typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.1 --activate
+
+      - name: Install dependencies
+        run: yarn install --immutable
 
       - name: Install Playwright browsers
         run: yarn playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: yarn test
+      - name: Run smoke tests
+        run: yarn test:smoke
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: smoke-test-results
           path: test-results/
           if-no-files-found: ignore
           retention-days: 7
@@ -74,7 +114,106 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: smoke-playwright-report
+          path: playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  e2e-tests:
+    needs:
+      - lint
+      - typecheck
+      - smoke-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.1 --activate
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps
+
+      - name: Run end-to-end tests
+        run: yarn test:e2e
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-playwright-report
+          path: playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  full-tests:
+    if: github.event_name != 'pull_request'
+    needs:
+      - lint
+      - typecheck
+      - e2e-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.1 --activate
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps
+
+      - name: Run full test suite
+        run: yarn test:full
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-playwright-report
           path: playwright-report/
           if-no-files-found: ignore
           retention-days: 7

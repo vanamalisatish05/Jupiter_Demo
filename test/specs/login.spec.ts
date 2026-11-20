@@ -1,6 +1,6 @@
 import { LoginData } from '@data';
 import { HomePage } from '@pages';
-import { test, expect } from './BaseTests.js'; 
+import { test, expect } from './BaseTests.ts'; 
 
 test('validate successful login [fluent example]', async ({open}) => {
     const user = await open(HomePage)

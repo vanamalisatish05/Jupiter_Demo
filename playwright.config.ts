@@ -7,6 +7,7 @@ const {PLAYWRIGHT_URL, PLAYWRIGHT_BROWSER, PLAYWRIGHT_HEADLESS} = readEnvironmen
 
 export default defineConfig ({
   testDir: 'test',
+  testMatch: /.*\.spec\.ts/,
   reporter: [
     ['list'],
     ['html', {open: 'never'}],

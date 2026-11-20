@@ -1,8 +1,8 @@
 import { ContactData } from '@data';
 import { HomePage } from '@pages';
-import { test, expect } from './BaseTests.js'; 
-import { APIContactDataProvider, ContactDataProvider } from './dataProviders/index.js';
-import { TestAPIContactData } from './dataProviders/APIContactDataProvider.js';
+import { test, expect } from './BaseTests.ts'; 
+import { APIContactDataProvider, ContactDataProvider } from './dataProviders/index.ts';
+import { TestAPIContactData } from './dataProviders/APIContactDataProvider.ts';
 
 test('validate mandatory errors [fluent example]', async ({open}) => {
     const contactPage = await open(HomePage)

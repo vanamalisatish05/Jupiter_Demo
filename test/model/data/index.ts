@@ -1,2 +1,2 @@
-export {default as LoginData} from './LoginData.js';
-export {default as ContactData} from './ContactData.js';
+export {default as LoginData} from './LoginData.ts';
+export {default as ContactData} from './ContactData.ts';

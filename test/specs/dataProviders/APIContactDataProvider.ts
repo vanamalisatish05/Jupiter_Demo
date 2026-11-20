@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import {ContactData} from '../../model/data/index.js';
+import {ContactData} from '../../model/data/index.ts';
 
 export interface TestAPIContactData { apiContactData: ContactData;}
 
